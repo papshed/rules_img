@@ -187,9 +187,14 @@ def _image_push_impl(ctx):
         "DOCKER_CONFIG",
     ]
 
+    print(ctx.attr._push_settings[PushSettingsInfo])
+
     # Add REGISTRY_AUTH_FILE if docker_config_path is set
     docker_config_path = ctx.attr._docker_config_path[BuildSettingInfo].value
+    print("Using docker config: {}".format(ctx.attr._docker_config_path[BuildSettingInfo].value))
+
     if docker_config_path:
+        print("Using docker config: {}".format(docker_config_path))
         environment["REGISTRY_AUTH_FILE"] = docker_config_path
 
     direct_runfiles = [deploy_tool_info.img_deploy_exe, deploy_metadata]
